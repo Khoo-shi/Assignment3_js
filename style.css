@@ -1,13 +1,51 @@
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  text-align: center;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
 }
 
 #loading.hidden {
   display: none;
 }
 
+#result {
+  margin: 20px 0;
+}
+
+#pokeImage {
+  width: 150px;
+  height: 150px;
+}
+
+#pokeInfo {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
 #favorites img {
   width: 80px;
   margin: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#favorites img:hover {
+  transform: scale(1.1);
 }
