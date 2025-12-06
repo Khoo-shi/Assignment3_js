@@ -76,3 +76,37 @@ function loadPokemonFromFavorite(img) {
 }
 
 renderFavorites();
+
+// List of Pokémon names for suggestions
+const pokemonNames = [];
+
+// Fetch all Pokémon names on page load
+async function fetchPokemonNames() {
+    try {
+        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1010");
+        const data = await res.json();
+        data.results.forEach(pokemon => pokemonNames.push(pokemon.name));
+    } catch (error) {
+        console.error("Failed to fetch Pokémon names:", error);
+    }
+}
+
+// Suggest Pokémon names as the user types
+document.getElementById("pokeName").addEventListener("input", (event) => {
+    const input = event.target.value.toLowerCase();
+    const suggestions = pokemonNames.filter(name => name.startsWith(input)).slice(0, 5);
+
+    const suggestionBox = document.getElementById("suggestionBox");
+    suggestionBox.innerHTML = suggestions.map(name => `<div class='suggestion'>${name}</div>`).join("");
+
+    // Add click event to suggestions
+    document.querySelectorAll(".suggestion").forEach(item => {
+        item.addEventListener("click", () => {
+            document.getElementById("pokeName").value = item.textContent;
+            suggestionBox.innerHTML = ""; // Clear suggestions
+        });
+    });
+});
+
+// Call fetchPokemonNames on page load
+fetchPokemonNames();
