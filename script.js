@@ -1,3 +1,5 @@
+let currentImage = "";
+git 
 async function loadPokemon() {
     const name = document.getElementById("pokeName").value.toLowerCase();
 
@@ -7,19 +9,34 @@ async function loadPokemon() {
     const data = await res.json();
 
     const img = data.sprites.front_default;
+    currentImage = img;
+
     document.getElementById("pokeImage").src = img;
 
-    let types = data.types.map(t => t.type.name).join(", ");
-
     document.getElementById("pokeInfo").innerHTML = `
-        <strong>${data.name.toUpperCase()}</strong><br>
-        Type: ${types}<br>
-        Height: ${data.height}<br>
-        Weight: ${data.weight}
+        <strong>${data.name.toUpperCase()}</strong>
     `;
 
     document.getElementById("loading").classList.add("hidden");
 }
 
-document.getElementById("searchBtn")
-    .addEventListener("click", loadPokemon);
+// CLICK FAVOURITE
+document.getElementById("favBtn").addEventListener("click", () => {
+    let favs = JSON.parse(localStorage.getItem("favs")) || [];
+    favs.push(currentImage);
+    localStorage.setItem("favs", JSON.stringify(favs));
+    renderFavorites();
+});
+
+function renderFavorites() {
+    let favs = JSON.parse(localStorage.getItem("favs")) || [];
+    let html = "";
+
+    favs.forEach(img => {
+        html += `<img src="${img}">`;
+    });
+
+    document.getElementById("favorites").innerHTML = html;
+}
+
+renderFavorites();
