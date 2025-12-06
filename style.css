@@ -118,6 +118,27 @@ button:hover {
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
+#favorites div {
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+}
+
+#favorites button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+#favorites button:hover {
+  background-color: #e60000;
+}
+
 /* Random & Search buttons grouped */
 #searchBtn, #randomBtn, #favBtn {
   margin-top: 10px;

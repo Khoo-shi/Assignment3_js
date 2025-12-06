@@ -60,11 +60,23 @@ function renderFavorites() {
     let favs = JSON.parse(localStorage.getItem("favs")) || [];
     let html = "";
 
-    favs.forEach(img => {
-        html += `<img src="${img}" onclick="loadPokemonFromFavorite('${img}')">`;
+    favs.forEach((img, index) => {
+        html += `
+            <div style="display: inline-block; text-align: center; margin: 5px;">
+                <img src="${img}" onclick="loadPokemonFromFavorite('${img}')" style="cursor: pointer;">
+                <button onclick="removeFromFavorites(${index})" style="display: block; margin-top: 5px;">Remove</button>
+            </div>
+        `;
     });
 
     document.getElementById("favorites").innerHTML = html;
+}
+
+function removeFromFavorites(index) {
+    let favs = JSON.parse(localStorage.getItem("favs")) || [];
+    favs.splice(index, 1); // Remove the selected Pokémon
+    localStorage.setItem("favs", JSON.stringify(favs));
+    renderFavorites(); // Re-render the favorites
 }
 
 function loadPokemonFromFavorite(img) {
